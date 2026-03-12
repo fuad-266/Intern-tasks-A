@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "students")
 public class Student {
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
