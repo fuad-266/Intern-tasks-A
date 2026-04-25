@@ -4,6 +4,7 @@ import com.example.student_course_system.entity.Student;
 import com.example.student_course_system.repository.StudentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,4 +27,9 @@ public class StudentService {
     public List<Student> getStudentsByAge(int age) {
         return studentRepository.findByAge(age);
     }
+
+    public Student createStudent(Student student) {
+        return studentRepository.save(student);
+    }
 }
+

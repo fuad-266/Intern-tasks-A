@@ -20,7 +20,10 @@ public class StudentController {
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
-
+@PostMapping
+public Student createStudents(@RequestBody Student student){
+        return studentService.createStudent(student);
+}
     @GetMapping
     public ResponseEntity<?> getStudents(
             @RequestParam(required = false) Integer age,
