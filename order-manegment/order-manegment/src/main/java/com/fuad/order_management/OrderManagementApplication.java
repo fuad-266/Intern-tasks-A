@@ -1,13 +1,13 @@
-package com.fuad.order_manegment;
+package com.fuad.order_management;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OrderManegmentApplication {
+public class OrderManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OrderManegmentApplication.class, args);
+		SpringApplication.run(OrderManagementApplication.class, args);
 	}
 
 }
