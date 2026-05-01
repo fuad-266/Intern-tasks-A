@@ -1,4 +1,10 @@
 package com.fuad.order_management.Repositary;
 
-public interface ProductRepository {
+
+
+import com.fuad.ordermanagement.entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
 }
