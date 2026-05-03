@@ -4,7 +4,7 @@ package com.fuad.order_management.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.criteria.Order;
+
 import lombok.Getter;
 import lombok.Setter;
 
