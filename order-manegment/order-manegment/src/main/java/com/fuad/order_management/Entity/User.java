@@ -1,4 +1,27 @@
 package com.fuad.order_management.Entity;
 
-public class User {
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.criteria.Order;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+public class User extends BaseEntity {
+
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
 }
