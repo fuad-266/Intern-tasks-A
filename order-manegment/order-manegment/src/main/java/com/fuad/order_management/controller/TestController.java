@@ -1,5 +1,6 @@
 package com.fuad.order_management.controller;
 
+import com.fuad.order_management.Service.LazyLoadingService;
 import com.fuad.order_management.Service.LifecycleService;
 import com.fuad.order_management.Service.RelationshipTestService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ public class TestController {
 
     private final LifecycleService lifecycleService;
     private final RelationshipTestService relationshipTestService;
+    private final LazyLoadingService lazyLoadingService;
 
     @GetMapping("/test")
     public String testLifecycle() {
@@ -27,5 +29,13 @@ public class TestController {
         relationshipTestService.testRelationships();
 
         return "Relationship test completed";
+    }
+
+    @GetMapping("/nplusone")
+    public String testNPlusOne() {
+
+        lazyLoadingService.testNPlusOne();
+
+        return "N+1 test completed";
     }
 }
