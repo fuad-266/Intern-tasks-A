@@ -2,6 +2,7 @@ package com.fuad.order_management.Repositary;
 
 
 
+import com.fuad.order_management.DTO.projection.OrderSummaryDTO;
 import com.fuad.order_management.Entity.Order;
 
 
@@ -19,4 +20,18 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             JOIN FETCH o.user
             """)
     List<Order> findAllWithUsers();
+
+    @Query("""
+            SELECT new com.fuad.ordermanagement.dto.projection.OrderSummaryDTO(
+                o.id,
+                CONCAT(u.firstName, ' ', u.lastName),
+                o.totalAmount,
+                COUNT(oi.id)
+            )
+            FROM Order o
+            JOIN o.user u
+            JOIN o.items oi
+            GROUP BY o.id, u.firstName, u.lastName, o.totalAmount
+            """)
+    List<OrderSummaryDTO> getOrderSummaries();
 }
