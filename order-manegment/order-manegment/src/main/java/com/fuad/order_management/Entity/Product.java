@@ -2,6 +2,7 @@ package com.fuad.order_management.Entity;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +18,7 @@ public class Product extends BaseEntity {
     private BigDecimal price;
 
     private Integer stock;
+
+    @Version
+    private Long version;
 }
