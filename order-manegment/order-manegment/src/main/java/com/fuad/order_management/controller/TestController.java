@@ -1,9 +1,6 @@
 package com.fuad.order_management.controller;
 
-import com.fuad.order_management.Service.LazyLoadingService;
-import com.fuad.order_management.Service.LifecycleService;
-import com.fuad.order_management.Service.RelationshipTestService;
-import com.fuad.order_management.Service.TransactionService;
+import com.fuad.order_management.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +13,7 @@ public class TestController {
     private final RelationshipTestService relationshipTestService;
     private final LazyLoadingService lazyLoadingService;
     private final TransactionService transactionService;
+    private final QueryService queryService;
 
     @GetMapping("/test")
     public String testLifecycle() {
@@ -53,5 +51,12 @@ public class TestController {
         transactionService.placeOrder();
 
         return "Transaction completed";
+    }
+    @GetMapping("/summary")
+    public String summary() {
+
+        queryService.getOrderSummaries();
+
+        return "Summary generated";
     }
 }
