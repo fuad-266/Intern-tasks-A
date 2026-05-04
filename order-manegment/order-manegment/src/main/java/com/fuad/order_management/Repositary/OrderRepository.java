@@ -22,7 +22,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllWithUsers();
 
     @Query("""
-            SELECT new com.fuad.ordermanagement.dto.projection.OrderSummaryDTO(
+            SELECT new com.fuad.order_management.DTO.projection.OrderSummaryDTO(
                 o.id,
                 CONCAT(u.firstName, ' ', u.lastName),
                 o.totalAmount,
@@ -34,4 +34,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             GROUP BY o.id, u.firstName, u.lastName, o.totalAmount
             """)
     List<OrderSummaryDTO> getOrderSummaries();
+    @Query("""
+        SELECT o
+        FROM Order o
+        WHERE o.user.id = :userId
+        """)
+    List<Order> findOrdersByUserId(Long userId);
 }
