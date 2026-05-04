@@ -3,6 +3,7 @@ package com.fuad.order_management.controller;
 import com.fuad.order_management.Service.LazyLoadingService;
 import com.fuad.order_management.Service.LifecycleService;
 import com.fuad.order_management.Service.RelationshipTestService;
+import com.fuad.order_management.Service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ public class TestController {
     private final LifecycleService lifecycleService;
     private final RelationshipTestService relationshipTestService;
     private final LazyLoadingService lazyLoadingService;
+    private final TransactionService transactionService;
 
     @GetMapping("/test")
     public String testLifecycle() {
@@ -44,5 +46,12 @@ public class TestController {
         lazyLoadingService.lazyExceptionDemo();
 
         return "Lazy exception test";
+    }
+    @GetMapping("/transaction")
+    public String transactionTest() {
+
+        transactionService.placeOrder();
+
+        return "Transaction completed";
     }
 }
