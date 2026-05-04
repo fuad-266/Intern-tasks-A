@@ -32,6 +32,8 @@ public class LazyLoadingServiceImpl implements LazyLoadingService {
             System.out.println(order.getUser().getFirstName());
         }
     }
+    @Override
+    @Transactional
         public void lazyExceptionDemo () {
 
             Order order = orderRepository.findById(1L).orElseThrow();

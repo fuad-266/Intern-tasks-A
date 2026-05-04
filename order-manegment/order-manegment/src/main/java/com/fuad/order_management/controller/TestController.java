@@ -38,4 +38,11 @@ public class TestController {
 
         return "N+1 test completed";
     }
+    @GetMapping("/lazy-exception")
+    public String lazyException() {
+
+        lazyLoadingService.lazyExceptionDemo();
+
+        return "Lazy exception test";
+    }
 }
