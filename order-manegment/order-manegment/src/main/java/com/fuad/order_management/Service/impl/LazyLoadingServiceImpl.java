@@ -21,7 +21,7 @@ public class LazyLoadingServiceImpl implements LazyLoadingService {
     @Transactional
     public void testNPlusOne() {
 
-        List<Order> orders = orderRepository.findAll();
+        List<Order> orders = orderRepository.findAllWithUsers();
 
         System.out.println("========== ORDERS LOADED ==========");
 
@@ -32,4 +32,11 @@ public class LazyLoadingServiceImpl implements LazyLoadingService {
             System.out.println(order.getUser().getFirstName());
         }
     }
+        public void lazyExceptionDemo () {
+
+            Order order = orderRepository.findById(1L).orElseThrow();
+
+            System.out.println(order.getUser().getFirstName());
+        }
+
 }
