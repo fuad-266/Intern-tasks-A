@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+
 public class QueryServiceImpl implements QueryService {
 
     private final OrderRepository orderRepository;
@@ -31,6 +32,21 @@ public class QueryServiceImpl implements QueryService {
             System.out.println(dto.getTotalAmount());
 
             System.out.println(dto.getItemCount());
+        }
+    }
+
+    @Override
+    public void getOrdersByUser(Long userId) {
+
+        var orders = orderRepository.findOrdersByUserId(userId);
+
+        for (var order : orders) {
+
+            System.out.println(order.getId());
+
+            System.out.println(order.getTotalAmount());
+
+            System.out.println(order.getStatus());
         }
     }
 }
