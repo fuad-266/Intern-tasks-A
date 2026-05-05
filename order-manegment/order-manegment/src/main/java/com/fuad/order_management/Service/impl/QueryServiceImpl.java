@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -62,6 +63,14 @@ public class QueryServiceImpl implements QueryService {
     public Double calculateRevenue() {
 
         return orderRepository.calculateRevenue();
+    }
+    @Override
+    public List<Order> getOrdersBetweenDates(
+            LocalDateTime start,
+            LocalDateTime end
+    ) {
+
+        return orderRepository.findByCreatedAtBetween(start, end);
     }
     @Override
     public List<TopProductDTO> getTopSellingProducts() {

@@ -11,6 +11,7 @@ import com.fuad.order_management.Entity.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -99,5 +100,13 @@ public class TestController {
     ) {
 
         return queryService.getOrdersByStatus(status);
+    }
+    @GetMapping("/orders/date-range")
+    public List<Order> getOrdersBetweenDates(
+            @RequestParam LocalDateTime start,
+            @RequestParam LocalDateTime end
+    ) {
+
+        return queryService.getOrdersBetweenDates(start, end);
     }
 }
