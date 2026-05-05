@@ -40,4 +40,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
         WHERE o.user.id = :userId
         """)
     List<Order> findOrdersByUserId(Long userId);
+
+    @Query("""
+        SELECT SUM(o.totalAmount)
+        FROM Order o
+        """)
+    Double calculateRevenue();
 }

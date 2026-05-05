@@ -49,4 +49,9 @@ public class QueryServiceImpl implements QueryService {
             System.out.println(order.getStatus());
         }
     }
+    @Override
+    public Double calculateRevenue() {
+
+        return orderRepository.calculateRevenue();
+    }
 }

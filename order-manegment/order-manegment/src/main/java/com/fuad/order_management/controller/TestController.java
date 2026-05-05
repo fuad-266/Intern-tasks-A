@@ -67,4 +67,9 @@ public class TestController {
 
         return "Orders fetched";
     }
+    @GetMapping("/orders/revenue")
+    public Double revenue() {
+
+        return queryService.calculateRevenue();
+    }
 }
