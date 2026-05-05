@@ -18,7 +18,7 @@ public class QueryServiceImpl implements QueryService {
     private final OrderRepository orderRepository;
 
     @Override
-    public void getOrderSummaries() {
+    public List<OrderSummaryDTO> getOrderSummaries() {
 
         List<OrderSummaryDTO> summaries =
                 orderRepository.getOrderSummaries();
@@ -33,6 +33,7 @@ public class QueryServiceImpl implements QueryService {
 
             System.out.println(dto.getItemCount());
         }
+        return summaries;
     }
 
     @Override
