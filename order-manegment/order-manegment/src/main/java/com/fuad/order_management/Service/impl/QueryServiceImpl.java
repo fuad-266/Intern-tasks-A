@@ -5,11 +5,16 @@ package com.fuad.order_management.Service.impl;
 import com.fuad.order_management.DTO.projection.OrderSummaryDTO;
 import com.fuad.order_management.DTO.projection.TopProductDTO;
 
+import com.fuad.order_management.Entity.enums.OrderStatus;
 import com.fuad.order_management.Repositary.OrderItemRepository;
 import com.fuad.order_management.Repositary.OrderRepository;
 import com.fuad.order_management.Service.QueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.fuad.order_management.Entity.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -70,5 +75,21 @@ public class QueryServiceImpl implements QueryService {
                         ((Number) result[1]).longValue()
                 ))
                 .toList();
+    }
+    @Override
+    public List<Order> getOrdersByStatus(OrderStatus status) {
+
+        return orderRepository.findByStatus(status);
+    }
+    @Override
+    public Page<Order> getOrdersWithPagination(int page, int size) {
+
+        return orderRepository.findAll(
+                PageRequest.of(
+                        page,
+                        size,
+                        Sort.by("totalAmount").descending()
+                )
+        );
     }
 }

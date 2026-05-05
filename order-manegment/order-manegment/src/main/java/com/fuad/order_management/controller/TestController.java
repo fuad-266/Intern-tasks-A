@@ -1,11 +1,15 @@
 package com.fuad.order_management.controller;
 
 import com.fuad.order_management.DTO.projection.TopProductDTO;
+import com.fuad.order_management.Entity.enums.OrderStatus;
 import com.fuad.order_management.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
+import com.fuad.order_management.Entity.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,6 +22,7 @@ public class TestController {
     private final LazyLoadingService lazyLoadingService;
     private final TransactionService transactionService;
     private final QueryService queryService;
+
 
     @GetMapping("/test")
     public String testLifecycle() {
@@ -79,5 +84,20 @@ public class TestController {
     public List<TopProductDTO> topProducts() {
 
         return queryService.getTopSellingProducts();
+    }
+    @GetMapping("/orders/pagination")
+    public Page<Order> pagination(
+            @RequestParam int page,
+            @RequestParam int size
+    ) {
+
+        return queryService.getOrdersWithPagination(page, size);
+    }
+    @GetMapping("/orders/status")
+    public List<Order> getByStatus(
+            @RequestParam OrderStatus status
+    ) {
+
+        return queryService.getOrdersByStatus(status);
     }
 }
