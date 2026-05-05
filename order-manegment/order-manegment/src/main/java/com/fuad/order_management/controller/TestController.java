@@ -1,10 +1,13 @@
 package com.fuad.order_management.controller;
 
+import com.fuad.order_management.DTO.projection.TopProductDTO;
 import com.fuad.order_management.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -71,5 +74,10 @@ public class TestController {
     public Double revenue() {
 
         return queryService.calculateRevenue();
+    }
+    @GetMapping("/orders/top-products")
+    public List<TopProductDTO> topProducts() {
+
+        return queryService.getTopSellingProducts();
     }
 }

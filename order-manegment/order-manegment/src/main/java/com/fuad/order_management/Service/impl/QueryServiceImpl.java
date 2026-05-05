@@ -3,6 +3,9 @@ package com.fuad.order_management.Service.impl;
 
 
 import com.fuad.order_management.DTO.projection.OrderSummaryDTO;
+import com.fuad.order_management.DTO.projection.TopProductDTO;
+
+import com.fuad.order_management.Repositary.OrderItemRepository;
 import com.fuad.order_management.Repositary.OrderRepository;
 import com.fuad.order_management.Service.QueryService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class QueryServiceImpl implements QueryService {
-
+    private final OrderItemRepository orderItemRepository;
     private final OrderRepository orderRepository;
 
     @Override
@@ -54,5 +57,18 @@ public class QueryServiceImpl implements QueryService {
     public Double calculateRevenue() {
 
         return orderRepository.calculateRevenue();
+    }
+    @Override
+    public List<TopProductDTO> getTopSellingProducts() {
+
+        List<Object[]> results =
+                orderItemRepository.getTopSellingProducts();
+
+        return results.stream()
+                .map(result -> new TopProductDTO(
+                        (String) result[0],
+                        ((Number) result[1]).longValue()
+                ))
+                .toList();
     }
 }
