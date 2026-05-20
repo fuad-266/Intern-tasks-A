@@ -1,18 +1,31 @@
 package com.security.security_project.controller;
 
-import com.security.security_project.auth.*;
-        import com.security.security_project.jwt.JwtService;
+import com.security.security_project.auth.AuthResponse;
+import com.security.security_project.auth.LoginRequest;
+import com.security.security_project.auth.RegisterRequest;
+
+import com.security.security_project.entity.RefreshToken;
+
+import com.security.security_project.jwt.JwtService;
+
+import com.security.security_project.refreshToken.RefreshTokenService;
+
 import com.security.security_project.repository.UserRepository;
+
 import com.security.security_project.role.Role;
+
 import com.security.security_project.user.User;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.security.authentication.*;
-        import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.Set;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -26,6 +39,8 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
 
     private final JwtService jwtService;
+
+    private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/register")
     public String register(
@@ -66,9 +81,19 @@ public class AuthController {
                 )
         );
 
-        String token =
-                jwtService.generateToken(request.getUsername());
+        User user = userRepository
+                .findByUsername(request.getUsername())
+                .orElseThrow();
 
-        return new AuthResponse(token);
+        String accessToken =
+                jwtService.generateToken(user.getUsername());
+
+        RefreshToken refreshToken =
+                refreshTokenService.createRefreshToken(user);
+
+        return new AuthResponse(
+                accessToken,
+                refreshToken.getToken()
+        );
     }
 }
