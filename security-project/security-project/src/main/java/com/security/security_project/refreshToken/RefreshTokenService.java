@@ -25,7 +25,6 @@ public class RefreshTokenService {
         return refreshTokenRepository.save(refreshToken);
     }
 
-    // ADD THIS NEW METHOD
     public RefreshToken verifyRefreshToken(String token) {
 
         RefreshToken refreshToken = refreshTokenRepository
@@ -42,5 +41,10 @@ public class RefreshTokenService {
         }
 
         return refreshToken;
+    }
+
+    public void deleteRefreshToken(String token) {
+
+        refreshTokenRepository.deleteByToken(token);
     }
 }
