@@ -2,6 +2,7 @@ package com.security.security_project.controller;
 
 import com.security.security_project.auth.AuthResponse;
 import com.security.security_project.auth.LoginRequest;
+import com.security.security_project.auth.RefreshTokenRequest;
 import com.security.security_project.auth.RegisterRequest;
 
 import com.security.security_project.entity.RefreshToken;
@@ -42,6 +43,7 @@ public class AuthController {
 
     private final RefreshTokenService refreshTokenService;
 
+    // REGISTER
     @PostMapping("/register")
     public String register(
             @RequestBody RegisterRequest request
@@ -68,6 +70,7 @@ public class AuthController {
         return "User Registered";
     }
 
+    // LOGIN
     @PostMapping("/login")
     public AuthResponse login(
             @RequestBody LoginRequest request
@@ -90,6 +93,25 @@ public class AuthController {
 
         RefreshToken refreshToken =
                 refreshTokenService.createRefreshToken(user);
+
+        return new AuthResponse(
+                accessToken,
+                refreshToken.getToken()
+        );
+    }
+
+    // REFRESH TOKEN
+    @PostMapping("/refresh-token")
+    public AuthResponse refreshToken(
+            @RequestBody RefreshTokenRequest request
+    ) {
+
+        RefreshToken refreshToken = refreshTokenService
+                .verifyRefreshToken(request.getRefreshToken());
+
+        String accessToken = jwtService.generateToken(
+                refreshToken.getUser().getUsername()
+        );
 
         return new AuthResponse(
                 accessToken,

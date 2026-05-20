@@ -1,6 +1,5 @@
 package com.security.security_project.refreshToken;
 
-
 import com.security.security_project.entity.RefreshToken;
 import com.security.security_project.user.User;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +23,24 @@ public class RefreshTokenService {
                 .build();
 
         return refreshTokenRepository.save(refreshToken);
+    }
+
+    // ADD THIS NEW METHOD
+    public RefreshToken verifyRefreshToken(String token) {
+
+        RefreshToken refreshToken = refreshTokenRepository
+                .findByToken(token)
+                .orElseThrow(() ->
+                        new RuntimeException("Refresh token not found")
+                );
+
+        if (refreshToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+
+            refreshTokenRepository.delete(refreshToken);
+
+            throw new RuntimeException("Refresh token expired");
+        }
+
+        return refreshToken;
     }
 }
