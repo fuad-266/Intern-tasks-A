@@ -118,4 +118,15 @@ public class AuthController {
                 refreshToken.getToken()
         );
     }
+    @PostMapping("/logout")
+    public String logout(
+            @RequestBody RefreshTokenRequest request
+    ) {
+
+        refreshTokenService.deleteRefreshToken(
+                request.getRefreshToken()
+        );
+
+        return "Logged out successfully";
+    }
 }
