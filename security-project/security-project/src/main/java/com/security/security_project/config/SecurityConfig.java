@@ -2,7 +2,7 @@ package com.security.security_project.config;
 
 import com.security.security_project.security.JwtAccessDeniedHandler;
 import com.security.security_project.security.JwtAuthenticationEntryPoint;
-import com.security.security_project.security.JwtAuthenticationFilter;
+import com.security.security_project.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
