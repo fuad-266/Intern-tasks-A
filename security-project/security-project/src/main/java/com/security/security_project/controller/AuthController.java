@@ -61,7 +61,7 @@ public class AuthController {
                         )
                 )
 
-                .roles(Set.of(Role.ROLE_USER))
+                .roles(Set.of(Role.ROLE_STUDENT))
 
                 .build();
 
