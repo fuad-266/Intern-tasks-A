@@ -1,7 +1,12 @@
 package com.security.security_project.entity;
 
-import jakarta.persistence.*;
-        import lombok.Getter;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
