@@ -1,6 +1,6 @@
-
 package com.security.security_project.dto.auth;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 public class RefreshTokenRequest {
 
+    @NotBlank
     private String refreshToken;
 }
