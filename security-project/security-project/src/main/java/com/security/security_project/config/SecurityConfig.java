@@ -13,12 +13,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import com.security.security_project.security.JwtAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -33,6 +35,7 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http)
@@ -40,6 +43,7 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
+
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS))
@@ -49,8 +53,13 @@ public class SecurityConfig {
                         .permitAll()
 
                         .anyRequest()
-                        .authenticated());
+                        .authenticated())
+
+                .addFilterBefore(
+                        jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                );
 
         return http.build();
     }
-}
+    }
